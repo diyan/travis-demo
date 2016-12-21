@@ -1,0 +1,53 @@
+# http://travis-ci.org/#!/diyan/pywinrm
+language: python
+matrix:
+  include:
+    - os: linux
+      dist: precise
+      sudo: false
+      python: 2.6
+    - os: linux
+      dist: precise
+      sudo: false
+      python: 2.7
+    # NOTE Python 3.0-3.2 do not support explicit unicode literal, see pep-0414
+    - os: linux
+      dist: precise
+      sudo: false
+      python: 3.3
+    - os: linux
+      dist: precise
+      sudo: false
+      python: 3.4
+    - os: linux
+      dist: precise
+      sudo: false
+      python: 3.5
+    - os: linux
+      dist: precise
+      sudo: false
+      python: pypy
+    # TODO wait for Travis CI update from PyPy3 v2.4.0 to PyPy3.3 v5.5, reason:
+    #   cryptography 1.0 is not compatible with PyPy < 2.6
+    # python: pypy3
+    - os: linux
+      dist: trusty
+      sudo: false
+    - os: osx
+      osx_image: xcode7.2
+install:
+  #- sudo apt-get install libffi-dev
+  #- pip install cffi coveralls
+  # upgrade pip to ensure we've got a new enough version that allows installation from local source
+  - curl https://bootstrap.pypa.io/get-pip.py | python
+  - pip --version
+  - pwd
+  - pip install coveralls
+  - pip install .[kerberos]
+  - pip install .[credssp]
+  - pip install -r requirements-test.txt
+script:
+  - py.test -v --pep8 --cov=winrm --cov-report=term-missing winrm/tests/
+
+after_success:
+  - coveralls
