@@ -35,6 +35,7 @@ install:
   - curl https://bootstrap.pypa.io/get-pip.py | python
   - pip --version
   - pwd
+  - ls -la ~/virtualenv
   - pip install pywinrm  # Just to test basic installation
 #  - pip install pywinrm[kerberos]
 #  - pip install pywinrm[credssp]
