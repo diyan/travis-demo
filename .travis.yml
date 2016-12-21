@@ -35,11 +35,8 @@ matrix:
 
 install:
   # Always use latest pyenv but keep installed Python versions in cache
-  - cp -R ~/.pyenv/versions ~/.cache/pyenv || true
-  - rm -rf ~/.pyenv
-  - git clone --depth=1 --branch=master https://github.com/yyuu/pyenv.git ~/.pyenv
-  - cp -R ~/.cache/pyenv/versions ~/.pyenv
-
+  - git clone https://github.com/yyuu/pyenv.git ~/.pyenv || true
+  - (cd ~/.pyenv && git pull)
   - export PATH="$HOME/.pyenv/bin:$PATH"
   - pyenv --version
   - pyenv install --skip-existing $PYENV
