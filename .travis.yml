@@ -3,7 +3,7 @@ language: generic
 cache:
   directories:
     - $HOME/.cache/pip
-    - $HOME/.pyenv
+#    - $HOME/.pyenv
 matrix:
   include:
     # Python 3.0-3.2 does not support explicit unicode literal, see pep-0414
@@ -19,7 +19,6 @@ matrix:
     #   cryptography 1.0 is not compatible with PyPy < 2.6
     # python: pypy3
 
-    # Workaround. 'pypy' can't be found on Ubuntu 14.04 worker but 'pypy-5.3.1' works fine
     - { os: linux, dist: trusty, sudo: false, env: UBUNTU=14.04 PYENV=2.6.9 }
     - { os: linux, dist: trusty, sudo: false, env: UBUNTU=14.04 PYENV=2.7.13 }
     - { os: linux, dist: trusty, sudo: false, env: UBUNTU=14.04 PYENV=3.3.6 }
@@ -34,24 +33,19 @@ matrix:
 #    - { os: osx, osx_image: xcode8.2, language: generic, env: OSX=10.12 }
 
 install:
-  # Assume pyenv is present on Mac OS worker
-  - pyenv install 2.7. || echo ERR
-  - pyenv install pypy3. || echo ERR
-  - pyenv install pypy3- || echo ERR
-  - pyenv install pypy2- || echo ERR
-  - pyenv install --skip-existing $PYENV
+  # Always use latest pyenv
+  - git clone https://github.com/yyuu/pyenv.git ~/.pyenv
+  - export PATH="$HOME/.pyenv/bin:$PATH"
+  - pyenv --version
+  - pyenv install $PYENV
   - pyenv global $PYENV
   - pyenv rehash
   - python --version
   - pip --version
-  # Double check that we must install virtualenv
   - pip install virtualenv
   - python -m virtualenv ~/.venv
   - source ~/.venv/bin/activate
-  - type pyenv || echo ERR
   - type brew || echo ERR
-  - ls -la ~/.pyenv/versions || echo ERR
-  - pyenv --version || echo ERR
   - brew --version || echo ERR
   #- if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then echo OSX_IF_OP ; fi
   #- [[ "$TRAVIS_OS_NAME" == "osx" ]] && echo OSX_AND_OP
