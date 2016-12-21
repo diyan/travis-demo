@@ -37,7 +37,7 @@ install:
   # Always use latest pyenv but keep installed Python versions in cache
   - git clone https://github.com/yyuu/pyenv.git ~/.pyenv || true
   - (cd ~/.pyenv && git pull)
-  - export PATH="$HOME/.pyenv/bin:$PATH"
+  - export PATH="$HOME/.pyenv/shims:$HOME/.pyenv/bin:$PATH"
   - pyenv --version
   - pyenv install --skip-existing $PYENV
   - pyenv global $PYENV
