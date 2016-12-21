@@ -33,7 +33,7 @@ install:
   - curl https://bootstrap.pypa.io/get-pip.py | python
   - pip --version
   - pwd
-  - pip install coveralls
+  - pip install pywinrm  # Just to test basic installation
 #  - pip install .[kerberos]
 #  - pip install .[credssp]
 #  - pip install -r requirements-test.txt
