@@ -31,9 +31,9 @@ matrix:
 
 install:
   # Assume pyenv is present on Mac OS worker
-  - eval "$(pyenv init -)"
   - pyenv install --skip-existing $PYTHON_VER
   - pyenv global $PYTHON_VER
+  - pyenv rehash
   # Double check that we must install virtualenv
   - python -m pip install --user virtualenv
   - python -m virtualenv ~/.venv
