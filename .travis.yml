@@ -41,26 +41,18 @@ install:
   - python --version
   - pip --version
   # Double check that we must install virtualenv
-  - python -m pip install --user virtualenv
+  - pip install virtualenv
+  - pyenv 2.7. || echo ERR
   - python -m virtualenv ~/.venv
   - source ~/.venv/bin/activate
   # upgrade pip to ensure we've got a new enough version that allows installation from local source
 #  - curl https://bootstrap.pypa.io/get-pip.py | python
   - pip --version || echo ERR
-  - pwd
-  - ls -la ~/ || echo ERR
-  - ls -la ~/virtualenv || echo ERR
-  - python --version || echo ERR
-  - python3 --version || echo ERR
   - type pyenv || echo ERR
   - type brew || echo ERR
   - ls -la ~/.pyenv/versions || echo ERR
   - pyenv --version || echo ERR
   - brew --version || echo ERR
-  - brew install python || echo ERR
-  - brew install python3 || echo ERR
-  - pyenv install 3.3.6
-  - pyenv global 3.3.6
   #- if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then echo OSX_IF_OP ; fi
   #- [[ "$TRAVIS_OS_NAME" == "osx" ]] && echo OSX_AND_OP
   - pip install pywinrm  # Just to test basic installation
