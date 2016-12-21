@@ -34,7 +34,7 @@ matrix:
 
 install:
   # Always use latest pyenv
-  - git clone https://github.com/yyuu/pyenv.git ~/.pyenv
+  - git clone --depth=1 --branch=master https://github.com/yyuu/pyenv.git ~/.pyenv
   - export PATH="$HOME/.pyenv/bin:$PATH"
   - pyenv --version
   - pyenv install $PYENV
