@@ -44,6 +44,8 @@ install:
   - brew --version || echo ERR
   - brew install python || echo ERR
   - brew install python3 || echo ERR
+  - pyenv install 3.3.6
+  - pyenv global 3.3.6
   - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then echo OSX_IF_OP ; fi
   - [[ "$TRAVIS_OS_NAME" == "osx" ]] && echo OSX_AND_OP
   - pip install pywinrm  # Just to test basic installation
