@@ -3,7 +3,7 @@ language: generic
 cache:
   directories:
     - $HOME/.cache/pip
-    - $HOME/.pyenv
+    - $HOME/.cache/pyenv
 matrix:
   include:
     # Python 3.0-3.2 does not support explicit unicode literal, see pep-0414
@@ -35,11 +35,14 @@ matrix:
 
 install:
   # Always use latest pyenv but keep installed Python versions in cache
+  - cp -R ~/.pyenv/versions ~/.cache/pyenv
   - rm -rf ~/.pyenv
   - git clone --depth=1 --branch=master https://github.com/yyuu/pyenv.git ~/.pyenv
+  - cp -R ~/.cache/pyenv/versions ~/.pyenv
+
   - export PATH="$HOME/.pyenv/bin:$PATH"
   - pyenv --version
-  - pyenv install $PYENV
+  - pyenv install --skip-existing $PYENV
   - pyenv global $PYENV
   - pyenv rehash
   - python --version
