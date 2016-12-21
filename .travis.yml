@@ -22,9 +22,9 @@ matrix:
     - { os: linux, dist: trusty, sudo: false, python: 3.5 }
     - { os: linux, dist: trusty, sudo: false, python: pypy }
 
-    - { os: osx, osx_image: xcode6.4 }  # OS X 10.10
-    - { os: osx, osx_image: xcode7.3 }  # OS X 10.11
-    - { os: osx, osx_image: xcode8.2 }  # OS X 10.12
+    - { os: osx, osx_image: xcode6.4, python: 2.7 }  # OS X 10.10
+    - { os: osx, osx_image: xcode7.3, python: 2.7 }  # OS X 10.11
+    - { os: osx, osx_image: xcode8.2, python: 2.7 }  # OS X 10.12
 
 install:
   #- sudo apt-get install libffi-dev
