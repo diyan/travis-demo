@@ -3,7 +3,7 @@ language: generic
 cache:
   directories:
     - $HOME/.cache/pip
-    - $HOME/.cache/pyenv
+    - $HOME/.pyenv
 matrix:
   include:
     # Python 3.0-3.2 does not support explicit unicode literal, see pep-0414
