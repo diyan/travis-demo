@@ -2,29 +2,28 @@
 language: python
 matrix:
   include:
-    # Run tests for supported Python version on Ubuntu 12.04
-    #   Python 3.0-3.2 do not support explicit unicode literal, see pep-0414
-    - { os: linux, dist: precise, sudo: false, python: 2.6 }
-    - { os: linux, dist: precise, sudo: false, python: 2.7 }
-    - { os: linux, dist: precise, sudo: false, python: 3.3 }
-    - { os: linux, dist: precise, sudo: false, python: 3.4 }
-    - { os: linux, dist: precise, sudo: false, python: 3.5 }
-    - { os: linux, dist: precise, sudo: false, python: pypy }
+    # Python 3.0-3.2 do not support explicit unicode literal, see pep-0414
+    # Define 'sudo: false' to run on container-based workers
+    - { os: linux, dist: precise, sudo: false, python: 2.6, env: UBUNTU=12.04 }
+    - { os: linux, dist: precise, sudo: false, python: 2.7, env: UBUNTU=12.04 }
+    - { os: linux, dist: precise, sudo: false, python: 3.3, env: UBUNTU=12.04 }
+    - { os: linux, dist: precise, sudo: false, python: 3.4, env: UBUNTU=12.04 }
+    - { os: linux, dist: precise, sudo: false, python: 3.5, env: UBUNTU=12.04 }
+    - { os: linux, dist: precise, sudo: false, python: pypy, env: UBUNTU=12.04 }
     # TODO wait for Travis CI update from PyPy3 v2.4.0 to PyPy3.3 v5.5, reason:
     #   cryptography 1.0 is not compatible with PyPy < 2.6
     # python: pypy3
 
-    # Run tests on Ubuntu 14.04
-    - { os: linux, dist: trusty, sudo: false, python: 2.6 }
-    - { os: linux, dist: trusty, sudo: false, python: 2.7 }
-    - { os: linux, dist: trusty, sudo: false, python: 3.3 }
-    - { os: linux, dist: trusty, sudo: false, python: 3.4 }
-    - { os: linux, dist: trusty, sudo: false, python: 3.5 }
-    - { os: linux, dist: trusty, sudo: false, python: pypy }
+    - { os: linux, dist: trusty, sudo: false, python: 2.6, env: UBUNTU=14.04 }
+    - { os: linux, dist: trusty, sudo: false, python: 2.7, env: UBUNTU=14.04 }
+    - { os: linux, dist: trusty, sudo: false, python: 3.3, env: UBUNTU=14.04 }
+    - { os: linux, dist: trusty, sudo: false, python: 3.4, env: UBUNTU=14.04 }
+    - { os: linux, dist: trusty, sudo: false, python: 3.5, env: UBUNTU=14.04 }
+    - { os: linux, dist: trusty, sudo: false, python: pypy, env: UBUNTU=14.04 }
 
-    - { os: osx, osx_image: xcode6.4, python: 2.7 }  # OS X 10.10
-    - { os: osx, osx_image: xcode7.3, python: 2.7 }  # OS X 10.11
-    - { os: osx, osx_image: xcode8.2, python: 2.7 }  # OS X 10.12
+    - { os: osx, osx_image: xcode6.4, python: 2.7, env: OSX=10.10 }
+    - { os: osx, osx_image: xcode7.3, python: 2.7, env: OSX=10.11 }
+    - { os: osx, osx_image: xcode8.2, python: 2.7, env: OSX=10.12 }
 
 install:
   #- sudo apt-get install libffi-dev
@@ -34,8 +33,8 @@ install:
   - pip --version
   - pwd
   - pip install pywinrm  # Just to test basic installation
-#  - pip install .[kerberos]
-#  - pip install .[credssp]
+#  - pip install pywinrm[kerberos]
+#  - pip install pywinrm[credssp]
 #  - pip install -r requirements-test.txt
 script:
   - echo done
