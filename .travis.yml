@@ -24,19 +24,31 @@ matrix:
     - { os: linux, dist: trusty, sudo: false, python: 3.6-dev, env: UBUNTU=14.04 }
     - { os: linux, dist: trusty, sudo: false, python: pypy-5.3.1, env: UBUNTU=14.04 }
 
-    - { os: osx, osx_image: xcode6.4, env: OSX=10.10 }
-    - { os: osx, osx_image: xcode7.3, python: 3.5, env: OSX=10.11 }
-    - { os: osx, osx_image: xcode8.2, python: 3.4, env: OSX=10.12 }
+    - { os: osx, osx_image: xcode6.4, language: generic, env: OSX=10.10 }
+    - { os: osx, osx_image: xcode7, language: generic, env: OSX=10.11 }
+    - { os: osx, osx_image: xcode8.2, language: generic, env: OSX=10.12 }
 
 install:
   # upgrade pip to ensure we've got a new enough version that allows installation from local source
-  - curl https://bootstrap.pypa.io/get-pip.py | python
-  - pip --version
+#  - curl https://bootstrap.pypa.io/get-pip.py | python
+  - pip --version || echo ERR
   - pwd
-  - ls -la ~/virtualenv
+  - ls -la ~/ || echo ERR
+  - ls -la ~/virtualenv || echo ERR
+  - python --version || echo ERR
+  - python3 --version || echo ERR
+  - type pyenv || echo ERR
+  - type brew || echo ERR
+  - ls -la ~/.pyenv/versions || echo ERR
+  - pyenv --version || echo ERR
+  - brew --version || echo ERR
+  - brew install python || echo ERR
+  - brew install python3 || echo ERR
+  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then echo OSX_IF_OP ; fi
+  - [[ "$TRAVIS_OS_NAME" == "osx" ]] && echo OSX_AND_OP
   - pip install pywinrm  # Just to test basic installation
-#  - pip install pywinrm[kerberos]
-#  - pip install pywinrm[credssp]
+  - pip install pywinrm[kerberos]
+  - pip install pywinrm[credssp]
 #  - pip install -r requirements-test.txt
 script:
   - echo done
