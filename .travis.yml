@@ -16,9 +16,6 @@ matrix:
     - { os: linux, dist: precise, sudo: false, env: UBUNTU=12.04 PYENV=3.6-dev }
     - { os: linux, dist: precise, sudo: false, env: UBUNTU=12.04 PYENV=pypy2-5.6.0 }
     - { os: linux, dist: precise, sudo: false, env: UBUNTU=12.04 PYENV=pypy3.3-5.5-alpha }
-    # TODO wait for Travis CI update from PyPy3 v2.4.0 to PyPy3.3 v5.5, reason:
-    #   cryptography 1.0 is not compatible with PyPy < 2.6
-    # python: pypy3
 
     - { os: linux, dist: trusty, sudo: false, env: UBUNTU=14.04 PYENV=2.6.9 }
     - { os: linux, dist: trusty, sudo: false, env: UBUNTU=14.04 PYENV=2.7.13 }
@@ -30,8 +27,13 @@ matrix:
     - { os: linux, dist: trusty, sudo: false, env: UBUNTU=14.04 PYENV=pypy3.3-5.5-alpha }
 
     - { os: osx, osx_image: xcode6.4, language: generic, env: OSX=10.10 PYENV=2.7.13 }
+    - { os: osx, osx_image: xcode6.4, language: generic, env: OSX=10.10 PYENV=3.5.2 }
+
     - { os: osx, osx_image: xcode7, language: generic, env: OSX=10.11 PYENV=2.7.13 }
+    - { os: osx, osx_image: xcode7, language: generic, env: OSX=10.11 PYENV=3.5.2 }
+
     - { os: osx, osx_image: xcode8.2, language: generic, env: OSX=10.12 PYENV=2.7.13 }
+    - { os: osx, osx_image: xcode8.2, language: generic, env: OSX=10.12 PYENV=3.5.2 }
 
 install:
   # Always use latest pyenv but keep installed Python versions in cache
@@ -49,11 +51,10 @@ install:
   - source ~/.venv/bin/activate
   - type brew || echo ERR
   - brew --version || echo ERR
-  #- if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then echo OSX_IF_OP ; fi
-  #- [[ "$TRAVIS_OS_NAME" == "osx" ]] && echo OSX_AND_OP
   - pip install pywinrm  # Just to test basic installation
-  - pip install pywinrm[kerberos]
+  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew install openssl ; fi
   - pip install pywinrm[credssp]
+  - pip install pywinrm[kerberos]
 #  - pip install -r requirements-test.txt
 script:
   - echo done
