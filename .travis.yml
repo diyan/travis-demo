@@ -35,6 +35,10 @@ matrix:
 
 install:
   # Assume pyenv is present on Mac OS worker
+  - pyenv install 2.7. || echo ERR
+  - pyenv install pypy3. || echo ERR
+  - pyenv install pypy3- || echo ERR
+  - pyenv install pypy2- || echo ERR
   - pyenv install --skip-existing $PYENV
   - pyenv global $PYENV
   - pyenv rehash
@@ -42,15 +46,8 @@ install:
   - pip --version
   # Double check that we must install virtualenv
   - pip install virtualenv
-  - pyenv install 2.7. || echo ERR
-  - pyenv install pypy3. || echo ERR
-  - pyenv install pypy3- || echo ERR
-  - pyenv install pypy2- || echo ERR
   - python -m virtualenv ~/.venv
   - source ~/.venv/bin/activate
-  # upgrade pip to ensure we've got a new enough version that allows installation from local source
-#  - curl https://bootstrap.pypa.io/get-pip.py | python
-  - pip --version || echo ERR
   - type pyenv || echo ERR
   - type brew || echo ERR
   - ls -la ~/.pyenv/versions || echo ERR
