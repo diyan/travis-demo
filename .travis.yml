@@ -8,7 +8,6 @@ matrix:
     - { os: linux, dist: precise, sudo: false, python: 2.7, env: UBUNTU=12.04 }
     - { os: linux, dist: precise, sudo: false, python: 3.3, env: UBUNTU=12.04 }
     - { os: linux, dist: precise, sudo: false, python: 3.4, env: UBUNTU=12.04 }
-    - { os: linux, dist: precise, sudo: false, python: 3.6, env: UBUNTU=12.04 }
     - { os: linux, dist: precise, sudo: false, python: 3.6-dev, env: UBUNTU=12.04 }
     - { os: linux, dist: precise, sudo: false, python: 3.5, env: UBUNTU=12.04 }
     - { os: linux, dist: precise, sudo: false, python: pypy, env: UBUNTU=12.04 }
@@ -22,13 +21,12 @@ matrix:
     - { os: linux, dist: trusty, sudo: false, python: 3.3, env: UBUNTU=14.04 }
     - { os: linux, dist: trusty, sudo: false, python: 3.4, env: UBUNTU=14.04 }
     - { os: linux, dist: trusty, sudo: false, python: 3.5, env: UBUNTU=14.04 }
-    - { os: linux, dist: trusty, sudo: false, python: 3.6, env: UBUNTU=14.04 }
     - { os: linux, dist: trusty, sudo: false, python: 3.6-dev, env: UBUNTU=14.04 }
     - { os: linux, dist: trusty, sudo: false, python: pypy-5.3.1, env: UBUNTU=14.04 }
 
-    - { os: osx, osx_image: xcode6.4, python: 2.7, env: OSX=10.10 }
-    - { os: osx, osx_image: xcode7.3, python: 2.7, env: OSX=10.11 }
-    - { os: osx, osx_image: xcode8.2, python: 2.7, env: OSX=10.12 }
+    - { os: osx, osx_image: xcode6.4, env: OSX=10.10 }
+    - { os: osx, osx_image: xcode7.3, python: 3.5, env: OSX=10.11 }
+    - { os: osx, osx_image: xcode8.2, python: 3.4, env: OSX=10.12 }
 
 install:
   # upgrade pip to ensure we've got a new enough version that allows installation from local source
