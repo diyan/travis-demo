@@ -6,7 +6,7 @@ cache:
     - $HOME/.pyenv
 matrix:
   include:
-    # Python 3.0-3.2 do not support explicit unicode literal, see pep-0414
+    # Python 3.0-3.2 does not support explicit unicode literal, see pep-0414
     # Define 'sudo: false' to run on container-based workers
 #    - { os: linux, dist: precise, sudo: false, python: 2.6, env: UBUNTU=12.04 }
 #    - { os: linux, dist: precise, sudo: false, python: 2.7, env: UBUNTU=12.04 }
@@ -20,14 +20,14 @@ matrix:
     # python: pypy3
 
     # Workaround. 'pypy' can't be found on Ubuntu 14.04 worker but 'pypy-5.3.1' works fine
-    - { os: linux, dist: trusty, sudo: false, env: UBUNTU=14.04 PYTHON=2.6.9 }
-    - { os: linux, dist: trusty, sudo: false, env: UBUNTU=14.04 PYTHON=2.7.13 }
-    - { os: linux, dist: trusty, sudo: false, env: UBUNTU=14.04 PYTHON=3.3.6 }
-    - { os: linux, dist: trusty, sudo: false, env: UBUNTU=14.04 PYTHON=3.4.5 }
-    - { os: linux, dist: trusty, sudo: false, env: UBUNTU=14.04 PYTHON=3.5.2 }
-    - { os: linux, dist: trusty, sudo: false, env: UBUNTU=14.04 PYTHON=3.6-dev }
-    - { os: linux, dist: trusty, sudo: false, env: UBUNTU=14.04 PYTHON=pypy2-5.6.0 }
-    - { os: linux, dist: trusty, sudo: false, env: UBUNTU=14.04 PYTHON=pypy3.3-5.5-alpha }
+    - { os: linux, dist: trusty, sudo: false, env: UBUNTU=14.04 PYENV=2.6.9 }
+    - { os: linux, dist: trusty, sudo: false, env: UBUNTU=14.04 PYENV=2.7.13 }
+    - { os: linux, dist: trusty, sudo: false, env: UBUNTU=14.04 PYENV=3.3.6 }
+    - { os: linux, dist: trusty, sudo: false, env: UBUNTU=14.04 PYENV=3.4.5 }
+    - { os: linux, dist: trusty, sudo: false, env: UBUNTU=14.04 PYENV=3.5.2 }
+    - { os: linux, dist: trusty, sudo: false, env: UBUNTU=14.04 PYENV=3.6-dev }
+    - { os: linux, dist: trusty, sudo: false, env: UBUNTU=14.04 PYENV=pypy2-5.6.0 }
+    - { os: linux, dist: trusty, sudo: false, env: UBUNTU=14.04 PYENV=pypy3.3-5.5-alpha }
 
 #    - { os: osx, osx_image: xcode6.4, language: generic, env: OSX=10.10 }
 #    - { os: osx, osx_image: xcode7, language: generic, env: OSX=10.11 }
@@ -35,14 +35,17 @@ matrix:
 
 install:
   # Assume pyenv is present on Mac OS worker
-  - pyenv install --skip-existing $PYTHON
-  - pyenv global $PYTHON
+  - pyenv install --skip-existing $PYENV
+  - pyenv global $PYENV
   - pyenv rehash
   - python --version
   - pip --version
   # Double check that we must install virtualenv
   - pip install virtualenv
-  - pyenv 2.7. || echo ERR
+  - pyenv install 2.7. || echo ERR
+  - pyenv install pypy3. || echo ERR
+  - pyenv install pypy3- || echo ERR
+  - pyenv install pypy2- || echo ERR
   - python -m virtualenv ~/.venv
   - source ~/.venv/bin/activate
   # upgrade pip to ensure we've got a new enough version that allows installation from local source
